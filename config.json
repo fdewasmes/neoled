@@ -1,0 +1,81 @@
+{
+  "matrix": {
+    "rows": 32,
+    "parallel": 1,
+    "chain": 4,
+    "pwmbits": 11,
+    "brightness": 50
+  },
+  "widgets": [
+    {
+      "type": "widgets.TextWidget.TextWidget",
+      "x": 0,
+      "y": 10,
+      "width": 40,
+      "height": 10,
+      "listen": "cpu.event"
+    },
+    {
+      "type": "widgets.GraphWidget.GraphWidget",
+      "x": 0,
+      "y": 20,
+      "width": 100,
+      "height": 10,
+      "listen": "dummy.event"
+    },
+    {
+      "type": "widgets.BidibulleWidget.BidibulleWidget",
+      "x": 76,
+      "y": 31,
+      "width": 31,
+      "height": 31,
+      "listen": "bidi.event",
+      "bidibulle": "fabrice",
+      "color": "0xFF8800",
+      "bgColor": "0x4B0082",
+      "zoom": 6,
+      "borderColor": "0x999999"
+    }
+  ],
+  "providers": [
+    {
+      "type": "providers.CpuProvider.CpuProvider",
+      "refreshInterval": 1,
+      "emit": "cpu.event"
+    },
+    {
+      "type": "providers.DummyProvider.DummyProvider",
+      "refreshInterval": 1,
+      "emit": "dummy.event"
+    }
+  ],
+  "adapters": [
+    {
+      "type": "adapters.jenkins.JenkinsAdapter",
+      "listen": "web.jenkins",
+      "emit": "jenkins.event"
+    },
+    {
+      "type": "adapters.hue.HueAdapter",
+      "listen": "web.hue",
+      "emit": "hue.command"
+    },
+    {
+      "type": "adapters.bidibulle.BidibulleAdapter",
+      "listen": "web.bidibulle",
+      "emit": "bidi.event"
+    }
+  ],
+  "commands": [
+    {
+      "type": "commands.hue.HueCommand",
+      "bridgeIp": "192.168.178.56",
+      "config_file_path": "./confighuehome",
+      "listen": "hue.command",
+      "lightbulbs": [
+        "Porte",
+        "Plafond 1"
+      ]
+    }
+  ]
+}
