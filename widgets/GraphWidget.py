@@ -36,20 +36,24 @@ class GraphWidget(Widget):
         # crop text if it's too long
         count = 0
         for d in list(self.data):
-            for i in range(0, d, 1):
+            for i in range(0, self.height, 1):
                 r = 255
                 g = 255
                 b = 255
-                if 0 <= d <= 5:
+                if (i < d) and (0 <= i <= 3):
                     r = 0
                     g = 255
                     b = 0
-                elif 6 <= d <= 8:
+                elif (i < d) and (4 <= i <= 6):
                     r = 255
                     g = 128
                     b = 0
-                else:
+                elif (i < d) and (7 <= i <= 10):
                     r = 255
+                    g = 0
+                    b = 0
+                else:
+                    r = 0
                     g = 0
                     b = 0
                 self.offscreenCanvas.SetPixel(self.x + count * 2, self.y - i, r, g, b)

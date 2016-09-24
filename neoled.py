@@ -1,25 +1,14 @@
 #!/usr/bin/env python
-from rgbmatrix import RGBMatrix, graphics
+from rgbmatrix import RGBMatrix
 from cyrusbus import Bus
-import time, sys, os, json, pprint, logging, logging.config
-from time import gmtime, strftime
+import time, sys, json, pprint, logging, logging.config
 from apscheduler.schedulers.background import BackgroundScheduler
 from webserver import webserver
-from pympler.tracker import SummaryTracker
+
 
 logging.config.fileConfig('logging.conf')
 # create logger
-neologger = logging.getLogger('simpleExample')
-
-log = logging.getLogger('apscheduler.executors.default')
-log.setLevel(logging.ERROR)  # DEBUG
-
-fmt = logging.Formatter('%(levelname)s:%(name)s:%(message)s')
-h = logging.StreamHandler()
-h.setFormatter(fmt)
-log.addHandler(h)
-
-tracker = SummaryTracker()
+neologger = logging.getLogger('neoled')
 
 
 class NeoLed():
@@ -98,17 +87,17 @@ class NeoLed():
         neologger.info("Bus state:\n" + pprint.pformat(self.bus.subscriptions))
 
         while True:
-            self.offscreenCanvas.Clear()
             for widget in widget_instances:
                 widget.Display()
             self.matrix.SwapOnVSync(self.offscreenCanvas)
             time.sleep(0.1)
 
-
 # Main function
 if __name__ == "__main__":
-    parser = NeoLed()
+    # prepare scheduler
     scheduler = BackgroundScheduler()
-    # scheduler.configure(jobstores=jobstores, executors=executors, job_defaults=job_defaults, timezone=utc)
     scheduler.start()
-    parser.run()
+
+    # start neoled
+    neoled = NeoLed()
+    neoled.run()

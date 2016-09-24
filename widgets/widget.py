@@ -2,8 +2,38 @@
 
 
 from rgbmatrix import graphics
-import time
+import operator
 
+
+def color_tweaker(f):
+    ops = {
+        '>': operator.gt,
+        '<': operator.lt,
+        '>': operator.gt,
+        '>=': operator.ge,
+        '<=': operator.le,
+        '=': operator.eq
+    }
+
+    def wrapped(self, *args, **kwargs):
+        # observer is of the form :
+        # ["observed_property_name", "color_chooser", "impacted_property_name"]
+        # color_chooser is of the form:
+        # ["operator", "compared_to_value", "resulting_color"]
+        for observer in self.observe:
+            if observer[0] == f.__name__:
+                if len(self.color_choosers) > observer[1]:
+
+                    g = filter(None,
+                               map(lambda color_chooser: (
+                               color_chooser[2] if ops[color_chooser[0]](args[0], color_chooser[1]) else None),
+                                   self.color_choosers[observer[1]]))
+                    if len(g) > 0:
+                        setattr(self, observer[2], self.color_from_hex(int(g[0], 0)))
+        r = f(self, *args, **kwargs)
+        return r
+
+    return wrapped
 
 class Widget(object):
     """ Base class for all widgets """
