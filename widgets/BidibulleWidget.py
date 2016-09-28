@@ -9,7 +9,13 @@ class BidibulleWidget(Widget):
         'default': 0x1FFFFFF,
         'fabrice': 0x11757EA,
         'axel': 0x1B5555B,
-        'yvan': 0x0EAFDD5
+        'yvan': 0x0EAFDD5,
+        'david': 0x0BF3BD8,
+        'antoine': 0x0EDB9D5,
+        'jc': 0x1FAFDDB,
+        'nicolas': 0x0477DD5,
+        'florian': 0xEDFBEE
+
     }
 
     def callback(self, bus, argument):

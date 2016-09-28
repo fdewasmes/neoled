@@ -15,7 +15,7 @@
     "y": 14,
     "width": 60,
     "height": 4,
-    "listen": "dummy.event",
+    "progress": 0.7,
     "color_choosers": [
       [
         [
