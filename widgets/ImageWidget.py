@@ -33,4 +33,4 @@ class ImageWidget(Widget):
             return
         self.image = Image.open(self.image_path)
         self.image.resize((self.width, self.height), Image.ANTIALIAS)
-        self.offscreenCanvas.SetImage(self.image, self.x, self.y)
+        self.offscreenCanvas.SetImage(self.image, self.x, self.y - self.height)
