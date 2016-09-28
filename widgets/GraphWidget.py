@@ -26,8 +26,9 @@ class GraphWidget(Widget):
 
     def Display(self):
 
-        super(GraphWidget, self).drawBorder(self.borderColor)
         super(GraphWidget, self).drawBackground(self.bgColor)
+        super(GraphWidget, self).drawBorder(self.borderColor)
+
 
         # graphics.DrawText(self.offscreenCanvas, self.font, self.x+len, self.y, self.color, str(len))
         # for i in range(10):

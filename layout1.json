@@ -1,0 +1,256 @@
+[
+  {
+    "type": "widgets.TextWidget.TextWidget",
+    "x": 0,
+    "y": 10,
+    "width": 40,
+    "height": 11,
+    "borderColor": "0xFFFFFF",
+    "font": "matrix/fonts/6x9.bdf",
+    "listen": "cpu.event"
+  },
+  {
+    "type": "widgets.ProgressBarWidget.ProgressBarWidget",
+    "x": 31,
+    "y": 14,
+    "width": 60,
+    "height": 4,
+    "listen": "dummy.event",
+    "color_choosers": [
+      [
+        [
+          ">",
+          "0.6",
+          "0xFF0000"
+        ],
+        [
+          ">",
+          "0.3",
+          "0x00FF00"
+        ],
+        [
+          ">",
+          "0",
+          "0x0000FF"
+        ]
+      ]
+    ],
+    "observe": [
+      [
+        "progress",
+        0,
+        "_color"
+      ]
+    ]
+  },
+  {
+    "type": "widgets.SquareWidget.SquareWidget",
+    "x": 91,
+    "y": 14,
+    "width": 4,
+    "height": 4,
+    "borderColor": "0",
+    "listen": "dummy.event",
+    "color_choosers": [
+      [
+        [
+          ">",
+          "6",
+          "0xFF0000"
+        ],
+        [
+          ">",
+          "3",
+          "0x00FF00"
+        ],
+        [
+          ">",
+          "0",
+          "0x0000FF"
+        ]
+      ]
+    ],
+    "observe": [
+      [
+        "val",
+        0,
+        "_color"
+      ]
+    ]
+  },
+  {
+    "type": "widgets.TextWidget.TextWidget",
+    "x": 31,
+    "y": 31,
+    "width": 64,
+    "height": 17,
+    "borderColor": "0",
+    "font": "matrix/fonts/4x6.bdf",
+    "defaultText": "hello this is a rather long text",
+    "listen": "fortune.event"
+  },
+  {
+    "type": "widgets.TextWidget.TextWidget",
+    "x": 40,
+    "y": 10,
+    "width": 56,
+    "height": 11,
+    "listen": "bidi.event",
+    "font": "matrix/fonts/6x9.bdf",
+    "borderColor": "0",
+    "color_choosers": [
+      [
+        [
+          "=",
+          "yvan",
+          "0xEEAA44"
+        ],
+        [
+          "=",
+          "fabrice",
+          "0x00FF66"
+        ],
+        [
+          "=",
+          "axel",
+          "0xAA00FF"
+        ]
+      ]
+    ],
+    "observe": [
+      [
+        "text",
+        0,
+        "_color"
+      ]
+    ]
+  },
+  {
+    "type": "widgets.TextWidget.TextWidget",
+    "x": 0,
+    "y": 31,
+    "width": 30,
+    "height": 10,
+    "defaultText": "R",
+    "listen": "bidi.event",
+    "font": "matrix/fonts/4x6.bdf",
+    "color_choosers": [
+      [
+        [
+          "=",
+          "yvan",
+          "0xFF0000"
+        ],
+        [
+          "=",
+          "fabrice",
+          "0x00FF00"
+        ],
+        [
+          "=",
+          "axel",
+          "0x0000FF"
+        ]
+      ],
+      [
+        [
+          "=",
+          "yvan",
+          "0xAAAA00"
+        ],
+        [
+          "=",
+          "fabrice",
+          "0x00AAAA"
+        ],
+        [
+          "=",
+          "axel",
+          "0xAA00AA"
+        ]
+      ]
+    ],
+    "observe": [
+      [
+        "text",
+        0,
+        "_bgColor"
+      ],
+      [
+        "text",
+        1,
+        "_color"
+      ]
+    ]
+  },
+  {
+    "type": "widgets.BidibulleWidget.BidibulleWidget",
+    "x": 96,
+    "y": 31,
+    "width": 31,
+    "height": 31,
+    "listen": "bidi.event",
+    "bidibulle": "fabrice",
+    "color": "0xFF8800",
+    "bgColor": "0",
+    "zoom": 6,
+    "borderColor": "0x999999",
+    "color_choosers": [
+      [
+        [
+          "=",
+          "yvan",
+          "0xFF0000"
+        ],
+        [
+          "=",
+          "fabrice",
+          "0x00FF00"
+        ],
+        [
+          "=",
+          "axel",
+          "0x0000FF"
+        ]
+      ],
+      [
+        [
+          "=",
+          "yvan",
+          "0xAAAA00"
+        ],
+        [
+          "=",
+          "fabrice",
+          "0x00AAAA"
+        ],
+        [
+          "=",
+          "axel",
+          "0xAA00AA"
+        ]
+      ]
+    ],
+    "observe": [
+      [
+        "current",
+        0,
+        "_bgColor"
+      ],
+      [
+        "current",
+        1,
+        "_color"
+      ]
+    ]
+  },
+  {
+    "type": "widgets.GraphWidget.GraphWidget",
+    "x": 0,
+    "y": 19,
+    "width": 30,
+    "height": 9,
+    "bgColor": "0",
+    "listen": "dummy.event"
+  }
+]

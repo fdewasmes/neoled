@@ -12,11 +12,18 @@ neologger = logging.getLogger('neoled')
 
 
 class NeoLed():
+    def callback(self, bus, argument):
+        self.called_bus = bus
+        print "changing layout"
+        self.default_layout = int(argument)
+        self.matrix.Clear()
+
     def __init__(self, *args, **kwargs):
         self.bus = Bus()
         self.load_config()
         self.init_matrix()
         self.webserver = webserver(self.bus)
+        self.default_layout = 0
 
     def load_config(self):
         with open('config.json', 'r') as f:
@@ -58,12 +65,8 @@ class NeoLed():
         self.webserver.start()
         widget_instances = []
 
-        neologger.info("= loading widgets")
-        for widget in self.config["widgets"]:
-            neologger.info("\tcreating " + widget["type"])
-            widget_class = self.get_class(widget["type"])
-            widget_instance = widget_class(self.matrix, self.bus, self.offscreenCanvas, **widget)
-            widget_instances.append(widget_instance)
+        for layout in self.config["layouts"]:
+            widget_instances.append(self.__load_widgets_for_layout(layout))
 
         neologger.info("= loading providers")
         for provider in self.config["providers"]:
@@ -86,11 +89,30 @@ class NeoLed():
 
         neologger.info("Bus state:\n" + pprint.pformat(self.bus.subscriptions))
 
-        while True:
-            for widget in widget_instances:
-                widget.Display()
-            self.matrix.SwapOnVSync(self.offscreenCanvas)
-            time.sleep(0.1)
+        if self.config["defaultLayout"] is not None:
+            self.default_layout = self.config["defaultLayout"]
+
+        self.bus.subscribe("layout.event", self.callback)
+
+        if self.default_layout < len(widget_instances):
+            while True:
+                if self.default_layout < len(widget_instances):
+                    for widget in widget_instances[self.default_layout]:
+                        widget.Display()
+                    self.matrix.SwapOnVSync(self.offscreenCanvas)
+                    time.sleep(0.1)
+
+    def __load_widgets_for_layout(self, layout_file):
+        neologger.info("= loading widgets for layout file " + layout_file)
+        with open(layout_file, 'r') as f:
+            layout = json.load(f)
+        widgets = []
+        for widget in layout:
+            neologger.info("\tcreating " + widget["type"])
+            widget_class = self.get_class(widget["type"])
+            widget_instance = widget_class(self.matrix, self.bus, self.offscreenCanvas, **widget)
+            widgets.append(widget_instance)
+        return widgets
 
 # Main function
 if __name__ == "__main__":

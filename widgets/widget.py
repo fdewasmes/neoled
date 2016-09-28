@@ -22,14 +22,18 @@ def color_tweaker(f):
         # ["operator", "compared_to_value", "resulting_color"]
         for observer in self.observe:
             if observer[0] == f.__name__:
+
                 if len(self.color_choosers) > observer[1]:
 
                     g = filter(None,
                                map(lambda color_chooser: (
-                               color_chooser[2] if ops[color_chooser[0]](args[0], color_chooser[1]) else None),
+                                   color_chooser[2] if ops[color_chooser[0]](args[0], type(args[0])(
+                                       color_chooser[1])) else None),
                                    self.color_choosers[observer[1]]))
+
                     if len(g) > 0:
                         setattr(self, observer[2], self.color_from_hex(int(g[0], 0)))
+
         r = f(self, *args, **kwargs)
         return r
 
@@ -129,16 +133,18 @@ class Widget(object):
     def drawBorder(self, color):
         if color.red == color.green == color.blue == 0:
             return
-        graphics.DrawLine(self.offscreenCanvas, self.x, self.y, self.x + self.width, self.y, color)
-        graphics.DrawLine(self.offscreenCanvas, self.x + self.width, self.y, self.x + self.width, self.y - self.height,
+        graphics.DrawLine(self.offscreenCanvas, self.x, self.y, self.x + self.width - 1, self.y, color)
+        graphics.DrawLine(self.offscreenCanvas, self.x + self.width - 1, self.y, self.x + self.width - 1,
+                          self.y - self.height + 1,
                           color)
-        graphics.DrawLine(self.offscreenCanvas, self.x, self.y, self.x, self.y - self.height, color)
-        graphics.DrawLine(self.offscreenCanvas, self.x, self.y - self.height, self.x + self.width, self.y - self.height,
+        graphics.DrawLine(self.offscreenCanvas, self.x, self.y, self.x, self.y - self.height + 1, color)
+        graphics.DrawLine(self.offscreenCanvas, self.x, self.y - self.height + 1, self.x + self.width - 1,
+                          self.y - self.height + 1,
                           color)
 
     def drawBackground(self, color):
         if color.red == color.green == color.blue == 0:
             return
-        for i in range(1, self.width):
-            for j in range(1, self.height):
+        for i in range(0, self.width):
+            for j in range(0, self.height):
                 self.offscreenCanvas.SetPixel(self.x + i, self.y - j, color.red, color.green, color.blue)

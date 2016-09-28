@@ -3,6 +3,7 @@
 from widget import Widget
 from widget import color_tweaker
 from rgbmatrix import graphics
+import textwrap
 from cyrusbus import Bus
 import time
 import sched
@@ -59,11 +60,11 @@ class TextWidget(Widget):
         self.font = graphics.Font()
         self.font.LoadFont(font)
         self.chw = self.font.CharacterWidth(ord('a'))
-        self.maxchar = self.width // self.chw
+        self.max_char_per_line = (self.width - 2) // self.chw
+        self.max_line = (self.height - 2) // self.font.height
 
     def Display(self):
-        # self.offscreenCanvas.Clear()
-        super(TextWidget, self).drawBorder(self.borderColor)
+
         super(TextWidget, self).drawBackground(self.bgColor)
 
         # avoid drawing text if it's too tall
@@ -75,5 +76,12 @@ class TextWidget(Widget):
         #    self.offscreenCanvas.SetPixel(self.x+i, self.y-1,0,0,0)
 
         # crop text if it's too long
-        self.text = self.text[0:self.maxchar]
-        len = graphics.DrawText(self.offscreenCanvas, self.font, self.x, self.y, self.color, self.text)
+        self.text = self.text[0:self.max_char_per_line * self.max_line]
+
+        wrapped = textwrap.wrap(self.text, self.max_char_per_line)
+
+        if len(wrapped) > 0:
+            for line in (0, min(len(wrapped), self.max_line) - 1):
+                graphics.DrawText(self.offscreenCanvas, self.font, self.x + 1,
+                                  self.y - self.height + (line + 1) * self.font.height + 1, self.color, wrapped[line])
+        super(TextWidget, self).drawBorder(self.borderColor)

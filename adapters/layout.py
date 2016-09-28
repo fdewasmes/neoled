@@ -4,14 +4,14 @@ from cyrusbus import Bus
 import urlparse
 
 
-class BidibulleAdapter(object):
+class LayoutAdapter(object):
     def callback(self, bus, path="", query="", body=""):
         print "PATH :" + path
         print "QUERY :" + query
         print "BODY :" + str(body)
         self.adapt(path, query)
 
-    def __init__(self, bus, listen="web.bidibulle", emit="bidibulle.event", type=__name__):
+    def __init__(self, bus, listen="web.layout", emit="layout.event", type=__name__):
         self.bus = bus
         self.emit = emit
         self.listen = listen

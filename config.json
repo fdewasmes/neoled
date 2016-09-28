@@ -6,186 +6,12 @@
     "pwmbits": 11,
     "brightness": 50
   },
-  "widgets": [
-    {
-      "type": "widgets.TextWidget.TextWidget",
-      "x": 0,
-      "y": 10,
-      "width": 40,
-      "height": 10,
-      "listen": "cpu.event"
-    },
-    {
-      "type": "widgets.TextWidget.TextWidget",
-      "x": 51,
-      "y": 31,
-      "width": 44,
-      "height": 21,
-      "listen": "cpu.event"
-    },
-    {
-      "type": "widgets.TextWidget.TextWidget",
-      "x": 41,
-      "y": 10,
-      "width": 54,
-      "height": 10,
-      "listen": "bidi.event",
-      "color_choosers": [
-        [
-          [
-            "=",
-            "yvan",
-            "0xEEAA44"
-          ],
-          [
-            "=",
-            "fabrice",
-            "0x00FF66"
-          ],
-          [
-            "=",
-            "axel",
-            "0xAA00FF"
-          ]
-        ]
-      ],
-      "observe": [
-        [
-          "text",
-          0,
-          "_color"
-        ]
-      ]
-    },
-    {
-      "type": "widgets.TextWidget.TextWidget",
-      "x": 0,
-      "y": 30,
-      "width": 50,
-      "height": 10,
-      "defaultText": "R",
-      "listen": "bidi.event",
-      "font": "matrix/fonts/4x6.bdf",
-      "color_choosers": [
-        [
-          [
-            "=",
-            "yvan",
-            "0xFF0000"
-          ],
-          [
-            "=",
-            "fabrice",
-            "0x00FF00"
-          ],
-          [
-            "=",
-            "axel",
-            "0x0000FF"
-          ]
-        ],
-        [
-          [
-            "=",
-            "yvan",
-            "0xAAAA00"
-          ],
-          [
-            "=",
-            "fabrice",
-            "0x00AAAA"
-          ],
-          [
-            "=",
-            "axel",
-            "0xAA00AA"
-          ]
-        ]
-      ],
-      "observe": [
-        [
-          "text",
-          0,
-          "_bgColor"
-        ],
-        [
-          "text",
-          1,
-          "_color"
-        ]
-      ]
-    },
-    {
-      "type": "widgets.BidibulleWidget.BidibulleWidget",
-      "x": 96,
-      "y": 31,
-      "width": 31,
-      "height": 31,
-      "listen": "bidi.event",
-      "bidibulle": "fabrice",
-      "color": "0xFF8800",
-      "bgColor": "0",
-      "zoom": 6,
-      "borderColor": "0x999999",
-      "color_choosers": [
-        [
-          [
-            "=",
-            "yvan",
-            "0xFF0000"
-          ],
-          [
-            "=",
-            "fabrice",
-            "0x00FF00"
-          ],
-          [
-            "=",
-            "axel",
-            "0x0000FF"
-          ]
-        ],
-        [
-          [
-            "=",
-            "yvan",
-            "0xAAAA00"
-          ],
-          [
-            "=",
-            "fabrice",
-            "0x00AAAA"
-          ],
-          [
-            "=",
-            "axel",
-            "0xAA00AA"
-          ]
-        ]
-      ],
-      "observe": [
-        [
-          "current",
-          0,
-          "_bgColor"
-        ],
-        [
-          "current",
-          1,
-          "_color"
-        ]
-      ]
-    },
-    {
-      "type": "widgets.GraphWidget.GraphWidget",
-      "x": 0,
-      "y": 19,
-      "width": 50,
-      "height": 9,
-      "bgColor": "0",
-      "listen": "dummy.event"
-    }
+  "layouts": [
+    "layout1.json",
+    "layout2.json",
+    "layout3.json"
   ],
+  "defaultLayout": 0,
   "providers": [
     {
       "type": "providers.CpuProvider.CpuProvider",
@@ -193,8 +19,15 @@
       "emit": "cpu.event"
     },
     {
-      "type": "providers.DummyProvider.DummyProvider",
+      "type": "providers.ShellProvider.ShellProvider",
+      "refreshInterval": 10,
+      "emit": "fortune.event"
+    },
+    {
+      "type": "providers.RandomProvider.RandomProvider",
       "refreshInterval": 0.2,
+      "lowerBound": 0,
+      "upperBound": 10,
       "emit": "dummy.event"
     }
   ],
@@ -213,13 +46,18 @@
       "type": "adapters.bidibulle.BidibulleAdapter",
       "listen": "web.bidibulle",
       "emit": "bidi.event"
+    },
+    {
+      "type": "adapters.layout.LayoutAdapter",
+      "listen": "web.layout",
+      "emit": "layout.event"
     }
   ],
   "commands": [
     {
       "type": "commands.hue.HueCommand",
-      "bridgeIp": "192.168.178.56",
-      "config_file_path": "./confighuehome",
+      "bridgeIp": "192.168.136.56",
+      "config_file_path": "./confighue",
       "listen": "hue.command",
       "lightbulbs": [
         "Porte",

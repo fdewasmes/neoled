@@ -1,0 +1,14 @@
+[
+  {
+    "type": "widgets.TextWidget.TextWidget",
+    "x": 0,
+    "y": 31,
+    "width": 128,
+    "height": 32,
+    "borderColor": "0",
+    "bgColor": "0x010101",
+    "font": "matrix/fonts/4x6.bdf",
+    "defaultText": "hello this is a rather long text",
+    "listen": "fortune.event"
+  }
+]
