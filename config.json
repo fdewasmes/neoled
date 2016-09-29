@@ -30,6 +30,7 @@
       "upperBound": 10,
       "emit": "dummy.event"
     }
+
   ],
   "adapters": [
     {
@@ -51,6 +52,11 @@
       "type": "adapters.layout.LayoutAdapter",
       "listen": "web.layout",
       "emit": "layout.event"
+    },
+    {
+      "type": "adapters.hockeyapp.HockeyAppAdapter",
+      "listen": "web.hockey",
+      "emit": "hockey.event"
     }
   ],
   "commands": [

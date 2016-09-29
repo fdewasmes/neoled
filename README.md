@@ -60,6 +60,22 @@ is A and B), but I have not had these in my lab yet to test.
 GENERAL CONCEPTS
 ================
 
-My main purpose was :
-* be able to layout various widgets with freedom 
-The general architecture is somehow like a very basic graphic rendering machine. The main class (NeoLed) is responsible for loading  
+The main purpose was :
+* get information from various sources (shell scripts, http webhooks, ...) that we call data providers here after 
+* represent these informations on the led matrix using various representations/widgets such as text widget, graphs, colored squares, progress bars and so on
+* have a great flexibility to layout the widgets and make them listen to any data provider
+* have all this easily extensible 
+* have all this easily configurable
+
+Config
+------
+
+The config file is a JSON file that has the following sections:
+* matrix: configuration of the led matrix hardware
+* layouts: the different widget layouts. A layout defines how widgets are arranged on the full matrix size.
+* defaultLayout: specifies the layout that must be loaded by default when the program starts the first time.
+* providers: configuration of the data providers (our source of information)
+* adapters: configuration of adapters of information
+* commands: configuration of the commands that can be sent to various hardware (currently Philips Hue and WeMo switches are supported)
+
+

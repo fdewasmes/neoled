@@ -9,6 +9,6 @@
     "bgColor": "0x010101",
     "font": "matrix/fonts/4x6.bdf",
     "defaultText": "hello this is a rather long text",
-    "listen": "fortune.event"
+    "listen": "hockey.event"
   }
 ]
