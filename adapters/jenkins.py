@@ -17,7 +17,6 @@ class JenkinsAdapter(object):
     def adapt(self, path, query):
         query_string = urlparse.parse_qsl(query)
         d = dict(query_string)
-        print d
 
         if "test" in query_string:
             num = int(query_string["test"][0])

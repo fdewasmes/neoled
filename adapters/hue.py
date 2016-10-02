@@ -2,13 +2,15 @@
 
 from cyrusbus import Bus
 import urlparse
+import logging
 
+logger = logging.getLogger('neoled')
 
 class HueAdapter(object):
     def callback(self, bus, path="", query="", body=""):
-        print "PATH :" + path
-        print "QUERY :" + query
-        print "BODY :" + str(body)
+        logger.debug("PATH :" + path)
+        logger.debug("QUERY :" + query)
+        logger.debug("BODY :" + str(body))
         self.adapt(path, query)
 
     def __init__(self, bus, listen="web.hue", emit="hue.command", type=__name__):
@@ -18,10 +20,10 @@ class HueAdapter(object):
         self.bus.subscribe(self.listen, self.callback)
 
     def adapt(self, path, query):
-        print query
+
         query_string = urlparse.parse_qsl(query)
         d = dict(query_string)
-        print "parsed query : " + str(d)
+
         hue = None
         brightness = None
         saturation = None

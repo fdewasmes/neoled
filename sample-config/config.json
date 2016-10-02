@@ -7,9 +7,9 @@
     "brightness": 50
   },
   "layouts": [
-    "layout1.json",
-    "layout2.json",
-    "layout3.json"
+    "sample-config/layout1.json",
+    "sample-config/layout2.json",
+    "sample-config/layout3.json"
   ],
   "defaultLayout": 0,
   "providers": [
@@ -27,8 +27,15 @@
       "type": "providers.RandomProvider.RandomProvider",
       "refreshInterval": 0.2,
       "lowerBound": 0,
-      "upperBound": 10,
+      "upperBound": 100,
       "emit": "dummy.event"
+    },
+    {
+      "type": "providers.RollingCounterProvider.RollingCounterProvider",
+      "refreshInterval": 5,
+      "lowerBound": 0,
+      "upperBound": 2,
+      "emit": "layout.event"
     }
 
   ],
@@ -63,7 +70,7 @@
     {
       "type": "commands.hue.HueCommand",
       "bridgeIp": "192.168.136.56",
-      "config_file_path": "./confighue",
+      "config_file_path": "/home/pi/neopixl-led/sample-config/confighue",
       "listen": "hue.command",
       "lightbulbs": [
         "Porte",

@@ -2,7 +2,9 @@
 
 from widget import Widget
 from widget import color_tweaker
+import logging
 
+logger = logging.getLogger('neoled')
 
 class BidibulleWidget(Widget):
     bidibulles = {
@@ -40,6 +42,8 @@ class BidibulleWidget(Widget):
         self.observe = observe
 
         self.bus.subscribe(listen, self.callback)
+        logger.info("Started Bidibulle Widget at x: " + str(self.x) + " y: " + str(self.y))
+        logger.info("available bidibulles: " + str(self.bidibulles))
 
     @property
     def current(self):

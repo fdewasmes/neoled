@@ -8,6 +8,6 @@
     "borderColor": "0",
     "bgColor": "0x010101",
     "listen": "fortune.event",
-    "imagePath": "./fabrice.ppm"
+    "imagePath": "/home/pi/neopixl-led/sample-config/fabrice.ppm"
   }
 ]

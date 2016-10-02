@@ -1,6 +1,7 @@
 import subprocess
+import logging
 
-
+logger = logging.getLogger('neoled')
 class ShellProvider(object):
     def __init__(self, bus, emit="event.key", refreshInterval=1, shell_command="/usr/games/fortune -s", type=__name__):
         self.bus = bus
@@ -13,5 +14,5 @@ class ShellProvider(object):
             0]
 
         out = outb[:-1].decode('ascii')
-        print out
+        logger.info(out)
         self.bus.publish(self.emit, argument=out)

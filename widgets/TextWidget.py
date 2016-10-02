@@ -4,11 +4,12 @@ from widget import Widget
 from widget import color_tweaker
 from rgbmatrix import graphics
 import textwrap
-from cyrusbus import Bus
-import time
-import sched
-import operator
-from functools import wraps
+import logging
+from jsonpath_rw import jsonpath, parse
+import os
+
+logger = logging.getLogger('neoled')
+dir_path = os.path.dirname(os.path.realpath(__file__))
 
 
 class TextWidget(Widget):
@@ -16,20 +17,39 @@ class TextWidget(Widget):
         self.called_bus = bus
         self.text = argument
 
+    def jsonp(self, bus, path="", query="", body=None):
+        self.called_bus = bus
+
+        if self.jsonpath_expr is not None:
+            matches = self.jsonpath_expr.find(body)
+            if len(matches) > 0:
+                self.text = str(matches[0].value)
+
     def __init__(self, matrix, bus, offscreenCanvas, x=0, y=10, width=50, height=10, defaultText="hello",
-                 font="matrix/fonts/6x10.bdf", textColor="0xFFFFFF", borderColor="0x0A0A0A", bgColor="0x00000A",
-                 listen="event.key", color_choosers={}, observe=[], type=__name__):
+                 font="6x10.bdf", textColor="0xFFFFFF", borderColor="0x0A0A0A", bgColor="0x00000A",
+                 listen=None, color_choosers={}, observe=[], jsonpath=None, type=__name__):
         super(TextWidget, self).__init__(matrix, bus, offscreenCanvas, x, y, width, height)
         self._text = defaultText
-        self._load_font(font)
+        self._load_font(dir_path + "/../matrix/fonts/" + font)
 
         self._color = super(TextWidget, self).color_from_hex(int(textColor, 0))
         self.borderColor = super(TextWidget, self).color_from_hex(int(borderColor, 0))
         self._bgColor = super(TextWidget, self).color_from_hex(int(bgColor, 0))
 
-        self.bus.subscribe(listen, self.callback)
+        if listen is not None:
+            self.bus.subscribe(listen, self.callback)
+        if jsonpath is not None:
+            self.bus.subscribe(jsonpath[0], self.jsonp)
+            if jsonpath[1] is not None:
+                self.jsonpath_expr = parse(jsonpath[1])
+            else:
+                self.jsonpath_expr = None
+
         self.color_choosers = color_choosers
         self.observe = observe
+
+        logger.info("Started Text Widget at x: " + str(self.x) + " y: " + str(self.y))
+
 
     @property
     def color(self):

@@ -1,14 +1,15 @@
 #!/usr/bin/env python
+import logging
 
-from cyrusbus import Bus
-import urlparse
+logger = logging.getLogger('neoled')
 
 
 class BidibulleAdapter(object):
     def callback(self, bus, path="", query="", body=""):
-        print "PATH :" + path
-        print "QUERY :" + query
-        print "BODY :" + str(body)
+        logger.info("Received Bidibulle query : " + query)
+        logger.debug("PATH :" + path)
+        logger.debug("QUERY :" + query)
+        logger.debug("BODY :" + str(body))
         self.adapt(path, query)
 
     def __init__(self, bus, listen="web.bidibulle", emit="bidibulle.event", type=__name__):

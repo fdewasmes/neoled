@@ -3,6 +3,9 @@
 from widget import Widget
 from widget import color_tweaker
 import math
+import logging
+
+logger = logging.getLogger('neoled')
 
 
 class ProgressBarWidget(Widget):
@@ -21,6 +24,7 @@ class ProgressBarWidget(Widget):
         self.color_choosers = color_choosers
         self.observe = observe
         self.bus.subscribe(listen, self.callback)
+        logger.info("Started ProgessBar Widget at x: " + str(self.x) + " y: " + str(self.y))
 
     @property
     def color(self):

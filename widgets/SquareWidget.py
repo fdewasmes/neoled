@@ -1,8 +1,10 @@
 #!/usr/bin/env python
 
 from widget import Widget
-import math
 from widget import color_tweaker
+import logging
+
+logger = logging.getLogger('neoled')
 
 
 class SquareWidget(Widget):
@@ -19,6 +21,7 @@ class SquareWidget(Widget):
         self.color_choosers = color_choosers
         self.observe = observe
         self.bus.subscribe(listen, self.callback)
+        logger.info("Started Square Widget at x: " + str(self.x) + " y: " + str(self.y))
 
     @property
     def color(self):
@@ -26,7 +29,6 @@ class SquareWidget(Widget):
 
     @color.setter
     def color(self, value):
-        print "color " + value
         self._color = value
 
     @property

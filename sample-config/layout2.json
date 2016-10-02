@@ -1,0 +1,18 @@
+[
+  {
+    "type": "widgets.TextWidget.TextWidget",
+    "x": 0,
+    "y": 31,
+    "width": 128,
+    "height": 32,
+    "borderColor": "0",
+    "bgColor": "0x010101",
+    "font": "4x6.bdf",
+    "defaultText": "ABCDEFGHIJ\tKLMNOPQRSTUVW1234567890",
+    "listen": "hockey.event",
+    "jsonpath": [
+      "web.hockey",
+      "feedback.name"
+    ]
+  }
+]

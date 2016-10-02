@@ -1,14 +1,15 @@
 #!/usr/bin/env python
 
 
-import json
+import logging
 
+logger = logging.getLogger('neoled')
 
 class HockeyAppAdapter(object):
     def callback(self, bus, path="", query="", body=""):
-        print "PATH :" + path
-        print "QUERY :" + query
-        print "BODY :" + str(body)
+        logger.debug("PATH :" + path)
+        logger.debug("QUERY :" + query)
+        logger.debug("BODY :" + str(body))
         self.adapt(path, query, body)
 
     def __init__(self, bus, listen="web.hockey", emit="hockey.event", type=__name__):

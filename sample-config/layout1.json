@@ -6,7 +6,7 @@
     "width": 40,
     "height": 11,
     "borderColor": "0xFFFFFF",
-    "font": "matrix/fonts/6x9.bdf",
+    "font": "6x9.bdf",
     "listen": "cpu.event"
   },
   {
@@ -85,7 +85,7 @@
     "width": 64,
     "height": 17,
     "borderColor": "0",
-    "font": "matrix/fonts/4x6.bdf",
+    "font": "4x6.bdf",
     "defaultText": "hello this is a rather long text",
     "listen": "fortune.event"
   },
@@ -96,7 +96,7 @@
     "width": 56,
     "height": 11,
     "listen": "bidi.event",
-    "font": "matrix/fonts/6x9.bdf",
+    "font": "6x9.bdf",
     "borderColor": "0",
     "color_choosers": [
       [
@@ -133,7 +133,7 @@
     "height": 10,
     "defaultText": "R",
     "listen": "bidi.event",
-    "font": "matrix/fonts/4x6.bdf",
+    "font": "4x6.bdf",
     "color_choosers": [
       [
         [
@@ -251,6 +251,8 @@
     "width": 30,
     "height": 9,
     "bgColor": "0",
+    "barWidth": 2,
+    "stacked": true,
     "listen": "dummy.event"
   }
 ]

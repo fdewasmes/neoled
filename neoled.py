@@ -4,9 +4,12 @@ from cyrusbus import Bus
 import time, sys, json, pprint, logging, logging.config
 from apscheduler.schedulers.background import BackgroundScheduler
 from webserver import webserver
+import argparse
+import os
 
+dir_path = os.path.dirname(os.path.realpath(__file__))
 
-logging.config.fileConfig('logging.conf')
+logging.config.fileConfig(dir_path + '/logging.conf')
 # create logger
 neologger = logging.getLogger('neoled')
 
@@ -14,19 +17,28 @@ neologger = logging.getLogger('neoled')
 class NeoLed():
     def callback(self, bus, argument):
         self.called_bus = bus
-        print "changing layout"
+
         self.default_layout = int(argument)
         self.matrix.Clear()
 
     def __init__(self, *args, **kwargs):
         self.bus = Bus()
+
+        parser = argparse.ArgumentParser(description='Fuel your RGB Matrix with useful informations')
+        parser.add_argument('-f', type=str,
+                            help='the config file to use', dest='config_file', default='./sample-config/config.json')
+        args = parser.parse_args()
+        self.config_file = args.config_file
+
         self.load_config()
         self.init_matrix()
         self.webserver = webserver(self.bus)
         self.default_layout = 0
+        # prepare scheduler
+        self.scheduler = BackgroundScheduler()
 
     def load_config(self):
-        with open('config.json', 'r') as f:
+        with open(self.config_file, 'r') as f:
             self.config = json.load(f)
 
     def init_matrix(self):
@@ -44,7 +56,7 @@ class NeoLed():
             self.start()
         except KeyboardInterrupt:
             print("Exiting\n")
-            scheduler.shutdown()
+            self.scheduler.shutdown()
             self.webserver.stop()
             sys.exit(0)
 
@@ -61,7 +73,7 @@ class NeoLed():
         return m
 
     def start(self):
-
+        self.scheduler.start()
         self.webserver.start()
         widget_instances = []
 
@@ -73,7 +85,7 @@ class NeoLed():
             neologger.info("\tcreating " + provider["type"])
             provider_class = self.get_class(provider["type"])
             provider_instance = provider_class(self.bus, **provider)
-            scheduler.add_job(provider_instance.run, 'interval', seconds=provider["refreshInterval"])
+            self.scheduler.add_job(provider_instance.run, 'interval', seconds=provider["refreshInterval"])
 
         neologger.info("= loading adapters")
         for adapter in self.config["adapters"]:
@@ -104,7 +116,7 @@ class NeoLed():
 
     def __load_widgets_for_layout(self, layout_file):
         neologger.info("= loading widgets for layout file " + layout_file)
-        with open(layout_file, 'r') as f:
+        with open(dir_path + "/" + layout_file, 'r') as f:
             layout = json.load(f)
         widgets = []
         for widget in layout:
@@ -116,10 +128,6 @@ class NeoLed():
 
 # Main function
 if __name__ == "__main__":
-    # prepare scheduler
-    scheduler = BackgroundScheduler()
-    scheduler.start()
-
     # start neoled
     neoled = NeoLed()
     neoled.run()

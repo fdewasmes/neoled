@@ -1,14 +1,15 @@
 #!/usr/bin/env python
 
-from cyrusbus import Bus
-import urlparse
+import logging
+
+logger = logging.getLogger('neoled')
 
 
 class LayoutAdapter(object):
     def callback(self, bus, path="", query="", body=""):
-        print "PATH :" + path
-        print "QUERY :" + query
-        print "BODY :" + str(body)
+        logger.debug("PATH :" + path)
+        logger.debug("QUERY :" + query)
+        logger.debug("BODY :" + str(body))
         self.adapt(path, query)
 
     def __init__(self, bus, listen="web.layout", emit="layout.event", type=__name__):
