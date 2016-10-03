@@ -2,18 +2,21 @@ PURPOSE
 ================
 
 This project intends to give a complete tool to display various information coming from IoT on a pixel panel powered by 
-a Raspberry Pi. The goal is to be very flexible yet very simple to layout informations as well as grab data from various
+a Raspberry Pi. The goal is to be very flexible yet very simple to layout information as well as grab data from various
 sources.
 
 This project relies on:
 * HARDWARE
   + A Raspberry Pi 3 Model B
-  + A Adafruit HAT also this is not [mandatory](https://github.com/hzeller/rpi-rgb-led-matrix/tree/master/adapter)
+  + A Adafruit HAT although this is not [mandatory](https://github.com/hzeller/rpi-rgb-led-matrix/tree/master/adapter)
 * SOFTWARE
   + [the excellent RGB Matrix library from Henner Zeller](https://github.com/hzeller/rpi-rgb-led-matrix). This library 
   allows to control commonly available 32x32 or 16x32 RGB LED panels with the 
   Raspberry Pi. Can support PWM up to 11Bit per channel, providing true 24bpp 
-  color with CIE1931 profile.
+  color with CIE1931 profile. We use the python binding provided by the library. 
+  Please note that its tested with python 2.7. At the time we tested it was not working 
+  properly with python 3. Also note that all APIs from C++ are not bound and the python API is a bit poorer 
+  but it remains sufficient for the purpose of this project.
 
   
 The NEOLED project is (c) NEOPIXL SA <contact@neopixl.com>, licensed with
@@ -56,6 +59,74 @@ the next panel. You can chain quite a few together.
 The 64x64 matrixes typically have 5 address lines (A, B, C, D, E). There are
 also 64x64 panels out there that only seem to have 1:4 multiplexing (there
 is A and B), but I have not had these in my lab yet to test.
+
+QUICKSTART
+==========
+
+Once you've checked the project, please ensure that you've properly checked out the matrix submodule : 
+
+> git submodule update --init --recursive
+
+You will have to compile everything. Please make sure that you've setup the makefile by editing the lib/Makefile file [as explained in the matrix library documentation](https://github.com/hzeller/rpi-rgb-led-matrix/blob/master/README.md)
+
+```shell
+cd matrix
+sudo apt-get update && sudo apt-get install python2.7-dev python-pillow -y
+make build-python
+sudo make install-python
+```
+
+Install as a system service
+---------------------------
+Installing as a system service as many advantages, the first one being to have the program to tied to the tty in which you launched it. 
+The second is certainly to not having to manually start the program each time the device is rebooted.
+The service definition must be on the /lib/systemd/system folder. The file will be named neoled.service
+
+> sudo vi /lib/systemd/system/neoled.service
+
+Here's what you should type in that file:
+
+```
+[Unit]
+Description=NEOLED service
+After=multi-user.target
+ 
+[Service]
+Type=simple
+ExecStart=/usr/bin/python /home/pi/neopixl-led/neoled.py -f /path/to/your/config/file
+Restart=on-abort
+ 
+[Install]
+WantedBy=multi-user.target
+```
+Now that we have our service we need to activate it:
+
+```
+sudo chmod 644 /lib/systemd/system/neoled.service
+chmod +x /home/pi/neopixl-led/neoled.py
+sudo systemctl daemon-reload
+sudo systemctl enable neoled.service
+sudo systemctl start neoled.service
+```
+If we want to check the status of our service, you can execute:
+
+> sudo systemctl status neoled.service
+
+And in general, here are the commands that you might find useful. The last one is particularly useful if nothing gets displayed on the matrix. 
+There might be a miconfiguration or a bug and this will give you the system out of the python interpreter. 
+
+```
+# Start service
+sudo systemctl start hello.service
+ 
+# Stop service
+sudo systemctl stop hello.service
+ 
+# Check service's log
+sudo journalctl -f -u hello.service
+```
+
+For more information please see [the wiki](https://wiki.archlinux.org/index.php/systemd).
 
 GENERAL CONCEPTS
 ================
