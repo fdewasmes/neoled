@@ -196,6 +196,7 @@ Config
 ------
 
 The config file is a JSON file that has the following sections:
+
 * matrix: configuration of the led matrix hardware
 * layouts: the different widget layouts. A layout defines how widgets are arranged on the full matrix size.
 * defaultLayout: specifies the layout that must be loaded by default when the program starts the first time.
@@ -283,6 +284,7 @@ The second trick is the color tweaker. The color tweaker allows you to tweak the
 It works thanks to two properties: color_choosers and observe. You can set one or more observers on a property. 
 
 An observer specifies three things grouped in a tuple:
+
 * the property that is observed
 * the color chooser
 * the targeted color property to be modified
