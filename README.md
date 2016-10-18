@@ -203,7 +203,7 @@ The config file is a JSON file that has the following sections:
 * adapters: configuration of adapters of information
 * commands: configuration of the commands that can be sent to various hardware (currently Philips Hue and WeMo switches are supported)
 
-the config file can be passed as a command line option using the -f flag. By default it will use the config file located in ```sample-config`` folder.
+the config file can be passed as a command line option using the -f flag. By default it will use the config file located in ```sample-config``` folder.
 
 ### Matrix
 
@@ -229,13 +229,13 @@ this configuration allows you to setup your rgb matrix layout.
 
 list of layout files used.`Paths are relative to neoled root folder.
 
-```json{
+````json{
 "layouts": [
     "sample-config/layout1.json",
     "sample-config/layout2.json",
     "sample-config/layout3.json"
-]
-```
+]]
+````
 You can specify which layout should be loaded by default using the ```defaultLayout``` property (which defaults to 0, the first layout of the array) 
 
 >"defaultLayout": 0
