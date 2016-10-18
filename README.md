@@ -452,7 +452,7 @@ The web provider has some particularities that are explained here. The web provi
 
 Basically it accepts two kind of http requests : GET and POST.
 
-For every requests received, it will emit a message names web.+ the first path component of the url. Fro instance if it receives a call at ```http://<yourIP>:8080/layout`` it will emit an event named ```web.layout```.
+For every requests received, it will emit a message names web.+ the first path component of the url. For instance if it receives a call at ```http://<yourIP>:8080/layout``` it will emit an event named ```web.layout```.
 For both GET and POST requests it will send the URL path and query parameters. For POST requests it will also send the request body
 
 | variable name | content                                 |
@@ -463,7 +463,7 @@ For both GET and POST requests it will send the URL path and query parameters. F
 
 ### adapters
 
-adapters are similar to providers except that they listen to events and emit events. So they should specify both ```listen``` and ```emit`` properties.
+adapters are similar to providers except that they listen to events and emit events. So they should specify both ```listen``` and ```emit``` properties.
 
 available adapters:
 
@@ -511,7 +511,7 @@ X   X
 X X X
 XXXXX
  X X 
- ```
+```
  
 as we encode from bottom to top it must be read as (the same be mirrored vertically and horizontally):
  
