@@ -12,3 +12,7 @@ class RandomProvider(object):
     def run(self):
         a = random.randint(self.lower_bound, self.upper_bound)
         self.bus.publish(self.emit, argument=a)
+
+    def shutdown(self):
+        None
+        # do nothing

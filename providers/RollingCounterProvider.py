@@ -18,3 +18,7 @@ class RollingCounterProvider(object):
         if self.current > self.upper_bound:
             self.current = self.lower_bound
         self.bus.publish(self.emit, argument=self.current)
+
+    def shutdown(self):
+        None
+        # do nothing

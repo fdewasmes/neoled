@@ -9,10 +9,19 @@
   "layouts": [
     "sample-config/layout1.json",
     "sample-config/layout2.json",
-    "sample-config/layout3.json"
+    "sample-config/layout3.json",
+    "sample-config/layout4.json"
   ],
   "defaultLayout": 0,
   "providers": [
+    {
+      "type": "providers.WebProvider.WebProvider"
+    },
+    {
+      "type": "providers.DatetimeProvider.DatetimeProvider",
+      "refreshInterval": 1,
+      "emit": "time.event"
+    },
     {
       "type": "providers.CpuProvider.CpuProvider",
       "refreshInterval": 1,
@@ -34,7 +43,7 @@
       "type": "providers.RollingCounterProvider.RollingCounterProvider",
       "refreshInterval": 5,
       "lowerBound": 0,
-      "upperBound": 2,
+      "upperBound": 3,
       "emit": "layout.event"
     }
 

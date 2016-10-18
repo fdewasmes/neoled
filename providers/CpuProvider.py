@@ -13,3 +13,7 @@ class CpuProvider(object):
         # t = subprocess.getoutput('./getcpu.sh')
         cpu = cpub[:-1].decode('ascii')
         self.bus.publish(self.emit, argument=cpu)
+
+    def shutdown(self):
+        None
+        # do nothing

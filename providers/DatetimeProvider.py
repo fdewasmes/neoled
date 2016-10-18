@@ -1,5 +1,4 @@
-import subprocess
-
+import time
 
 class DatetimeProvider(object):
     def __init__(self, bus, emit="event.key", refreshInterval=1, type=__name__):
@@ -8,4 +7,8 @@ class DatetimeProvider(object):
         self.refreshInterval = refreshInterval
 
     def run(self):
-        parser.bus.publish(self.emit, argument=strftime("%H:%M:%S", gmtime()))
+        self.bus.publish(self.emit, argument=time.strftime("%H:%M:%S", time.gmtime()))
+
+    def shutdown(self):
+        None
+        # do nothing

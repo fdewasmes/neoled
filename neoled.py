@@ -1,11 +1,16 @@
 #!/usr/bin/env python
-from rgbmatrix import RGBMatrix
-from cyrusbus import Bus
-import time, sys, json, pprint, logging, logging.config
-from apscheduler.schedulers.background import BackgroundScheduler
-from webserver import webserver
 import argparse
+import json
+import logging
+import logging.config
 import os
+import pprint
+import sys
+import time
+
+from apscheduler.schedulers.background import BackgroundScheduler
+from cyrusbus import Bus
+from rgbmatrix import RGBMatrix
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
 
@@ -32,7 +37,7 @@ class NeoLed():
 
         self.load_config()
         self.init_matrix()
-        self.webserver = webserver(self.bus)
+
         self.default_layout = 0
         # prepare scheduler
         self.scheduler = BackgroundScheduler()
@@ -57,7 +62,10 @@ class NeoLed():
         except KeyboardInterrupt:
             print("Exiting\n")
             self.scheduler.shutdown()
-            self.webserver.stop()
+
+            if self.provider_instances is not None:
+                for instance in self.provider_instances:
+                    instance.shutdown()
             sys.exit(0)
 
     def get_class(self, kls):
@@ -74,8 +82,9 @@ class NeoLed():
 
     def start(self):
         self.scheduler.start()
-        self.webserver.start()
+
         widget_instances = []
+        self.provider_instances = []
 
         for layout in self.config["layouts"]:
             widget_instances.append(self.__load_widgets_for_layout(layout))
@@ -85,7 +94,11 @@ class NeoLed():
             neologger.info("\tcreating " + provider["type"])
             provider_class = self.get_class(provider["type"])
             provider_instance = provider_class(self.bus, **provider)
-            self.scheduler.add_job(provider_instance.run, 'interval', seconds=provider["refreshInterval"])
+            if hasattr(provider_instance, 'refreshInterval') and provider_instance.refreshInterval is not None:
+                self.scheduler.add_job(provider_instance.run, 'interval', seconds=provider["refreshInterval"])
+            else:
+                provider_instance.start()
+            self.provider_instances.append(provider_instance)
 
         neologger.info("= loading adapters")
         for adapter in self.config["adapters"]:

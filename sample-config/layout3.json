@@ -6,7 +6,7 @@
     "width": 128,
     "height": 32,
     "borderColor": "0",
-    "bgColor": "0x010101",
+    "bgColor": "0",
     "listen": "fortune.event",
     "imagePath": "/home/pi/neopixl-led/sample-config/neopixl.ppm"
   }

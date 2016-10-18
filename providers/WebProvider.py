@@ -72,11 +72,11 @@ class GetHandler(BaseHTTPRequestHandler):
         bus.publish("web." + path_components[0], path=parsed_path.path, query=parsed_path.query, **kwargs)
 
 
-class webserver(object):
+class WebProvider(object):
     """docstring for webserver."""
 
-    def __init__(self, b):
-        super(webserver, self).__init__()
+    def __init__(self, b, **kwargs):
+        super(WebProvider, self).__init__()
         global bus
         bus = b
         self.server = HTTPServer(('0.0.0.0', 8080), GetHandler)
@@ -88,3 +88,7 @@ class webserver(object):
 
     def stop(self):
         self.server.shutdown()
+
+    def shutdown(self):
+        print "shutdown web server"
+        self.stop()

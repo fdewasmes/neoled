@@ -16,3 +16,7 @@ class ShellProvider(object):
         out = outb[:-1].decode('ascii')
         logger.info(out)
         self.bus.publish(self.emit, argument=out)
+
+    def shutdown(self):
+        None
+        # do nothing
