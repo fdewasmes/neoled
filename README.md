@@ -243,6 +243,7 @@ You can specify which layout should be loaded by default using the ```defaultLay
 A layout file is maybe the most difficult config file to setup. Below is a complete description on how to set it up.
 
 A layout file is an array of widget components to display. You can choose any widget from:
+
 * BidibulleWidget: a neopixl thingy :) a small space invader like (5x5 pixel character). 
 * GraphWidget: a bar graph
 * ImageWidget: an image 
@@ -251,12 +252,14 @@ A layout file is an array of widget components to display. You can choose any wi
 * TextWidget: a multi-line text
 
 For each widget that you want to use you have to specify:
+
 * x: position in the x axis. 0 is the left most border of the led panel.
 * y: position in the y axis. Beware that 0 is the upper border of the led panel and increasing values are when you get down.
 * width: width in pixels 
 * height: height in pixels
 
 optionally you can specify:
+
 * borderColor: a string containing a RGB hex value such as 0xAA00FF. Border width is always one pixel.
 * backgroundColor: : a string containing a RGB hex value such as 0xAA00FF
 
@@ -269,7 +272,7 @@ There are two specific tricks about the widgets.
 The first one is that you may want to quickly extract information from a message if it's a JSON payload. 
 In that case you would have to write an adapter which is a bit tedious. Instead you can use the jsonpath property to specify json path expressions:
 
-```json{
+```
 "jsonpath": [
   "web.hockey",
   "feedback.name"
@@ -289,7 +292,7 @@ the color property to be modified must be a property that stores a color.
 
 as an example : 
 
-```json{
+```
 [
   "text",
   0,
@@ -311,7 +314,7 @@ The first matching condition wins.
 
 Let's see a complete example:
 
-```json{
+```
 "color_choosers": [
       [
         [
@@ -369,7 +372,7 @@ The second one listens to the text property of the widget using the second color
 Why all this complex stuff? Because it can be useful to change a text color in red if a value is critical for instance.
 Here is another example:
 
-```json{
+```
 {
     "type": "widgets.SquareWidget.SquareWidget",
     "x": 91,
@@ -431,7 +434,7 @@ For passive providers, you should specify the frequency at which the provider is
 
 To illustrate the configuration of a provider here is a simple example:
 
-```json{
+```
 {
   "type": "providers.RollingCounterProvider.RollingCounterProvider",
   "refreshInterval": 5,
