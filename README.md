@@ -466,12 +466,13 @@ For both GET and POST requests it will send the URL path and query parameters. F
 adapters are similar to providers except that they listen to events and emit events. So they should specify both ```listen``` and ```emit`` properties.
 
 available adapters:
+
 * bidibulle: a neopixl specials :) it allows to specify a small space invader like (5x5 pixel character) to display. This information is extracted from a web service call url. To test it, simply make a call to http://<neoled-ip>/bidibulle/<bidibulle-name>
 * hue: extracts values of hue, saturation and brightness from an HTTP call to tweak lights operated by a Philips Hue Bridge.
 * jenkins: incomplete
 * layout: extract the layout to display from an HTTP call URL. To test it, simply make a call to http://<neoled-ip>/layout/<layout-position-in-the-layouts-array> 
 
-```json{
+```
 {
   "type": "adapters.layout.LayoutAdapter",
   "listen": "web.layout",
@@ -483,7 +484,7 @@ available adapters:
 
 commands are similar to providers and adapters. All their parameters are specific to the object to which they talk.
 
-```json{
+```
 {
   "type": "commands.hue.HueCommand",
   "bridgeIp": "192.168.136.56",
