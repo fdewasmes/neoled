@@ -9,7 +9,6 @@ def color_tweaker(f):
     ops = {
         '>': operator.gt,
         '<': operator.lt,
-        '>': operator.gt,
         '>=': operator.ge,
         '<=': operator.le,
         '=': operator.eq
