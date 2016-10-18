@@ -209,11 +209,11 @@ the config file can be passed as a command line option using the -f flag. By def
 
 this configuration allows you to setup your rgb matrix layout.
 
-**rows**: Panel rows. 8, 16, 32 or 64. (Default: 32).<br>
-**chain**: Number of daisy-chained panels. (Default: 1).<br>
-**parallel**: For A/B+ models or RPi2,3b: parallel chains. range=1..3 (Default: 1).<br>
-**pwmbits**: PWM bits (Default: 11).<br>
-**brightness**: Brightness in percent (Default: 100).<br>
+* **rows**: Panel rows. 8, 16, 32 or 64. (Default: 32).
+* **chain**: Number of daisy-chained panels. (Default: 1).
+* **parallel**: For A/B+ models or RPi2,3b: parallel chains. range=1..3 (Default: 1).
+* **pwmbits**: PWM bits (Default: 11).<br>
+* **brightness**: Brightness in percent (Default: 100).
 
 ```json{
 "matrix": {
