@@ -215,7 +215,7 @@ this configuration allows you to setup your rgb matrix layout.
 * **pwmbits**: PWM bits (Default: 11).<br>
 * **brightness**: Brightness in percent (Default: 100).
 
-```json{
+```
 "matrix": {
     "rows": 32,
     "parallel": 1,
@@ -229,13 +229,13 @@ this configuration allows you to setup your rgb matrix layout.
 
 list of layout files used.`Paths are relative to neoled root folder.
 
-````json{
+```
 "layouts": [
     "sample-config/layout1.json",
     "sample-config/layout2.json",
     "sample-config/layout3.json"
 ]]
-````
+```
 You can specify which layout should be loaded by default using the ```defaultLayout``` property (which defaults to 0, the first layout of the array) 
 
 >"defaultLayout": 0
