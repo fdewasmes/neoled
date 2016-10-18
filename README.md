@@ -410,7 +410,8 @@ Here is another example:
   }
 ```
 
-This square widget changes its tint based on the value it receives. 
+This square widget changes its tint based on the value it receives.
+ 
 * If it's more than 6: the square is red, 
 * between 3 and 6: it's green, 
 * less than 3: it's blue. 
@@ -420,10 +421,11 @@ This square widget changes its tint based on the value it receives.
 Providers, adapters and commands are configured using arrays of json objects.
 
 Each provider can have a different number of parameters, depending on its specificity. Available providers are:
+
 * **CpuProvider**: provides the CPU used
 * **DatetimeProvider**: provides clock
 * **RandomProvider**: provides a random number
-* **RollingCounterProvider**: provides a number that increments from ```lowerBound`` (default is 0) until ```upperBound`` (default is 10) and rolls back to lowerBound. The increment step cann be specified using the ```step`` property which defaults to 1
+* **RollingCounterProvider**: provides a number that increments from ```lowerBound``` (default is 0) until ```upperBound``` (default is 10) and rolls back to lowerBound. The increment step cann be specified using the ```step``` property which defaults to 1
 * **ShellProvider**: executes a shell command and returns the standard output.
 * **WebProvider**: emits an event based on the url called and the body.
 
