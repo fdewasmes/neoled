@@ -1,0 +1,13 @@
+[
+  {
+    "type": "widgets.ImageWidget.ImageWidget",
+    "x": 0,
+    "y": 31,
+    "width": 128,
+    "height": 32,
+    "borderColor": "0",
+    "bgColor": "0x010101",
+    "listen": "fortune.event",
+    "imagePath": "/home/pi/neopixl-led/sample-config/fabrice.ppm"
+  }
+]
