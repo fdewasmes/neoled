@@ -432,7 +432,7 @@ Each provider can have a different number of parameters, depending on its specif
 For providers, adapters and commands, the ```type``` is mandatory. It specifies the python module name containing the code to run this component. 
 
 For providers, you should specify the name of the event that is emitted using the ```emit``` property.
-For passive providers, you should specify the frequency at which the provider is queried using the ```refreshInterval`` property. 
+For passive providers, you should specify the frequency at which the provider is queried using the ```refreshInterval``` property. 
 
 To illustrate the configuration of a provider here is a simple example:
 
@@ -523,7 +523,7 @@ X X X    -->  10101
 X   X    -->  10001
 ```
 
-will be encoded as: 0x11757EA`
+will be encoded as: 0x11757EA
 
 ```
    line5 line4 line3 line2 line1
