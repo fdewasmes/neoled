@@ -305,6 +305,7 @@ It evaluates the impact on the color thanks to the color chooser at index 0.
 The color that is changed is the bgColor. Please note that we specify directly the ivar and not the property name here.
 
 The color chooser is an array of tuples. Each tuple specifies:
+
 * an operator (=,<,>,>= or <=)
 * the right side of the comparison
 * a color
