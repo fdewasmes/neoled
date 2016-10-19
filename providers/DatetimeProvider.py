@@ -7,7 +7,7 @@ class DatetimeProvider(object):
         self.refreshInterval = refreshInterval
 
     def run(self):
-        self.bus.publish(self.emit, argument=time.strftime("%H:%M:%S", time.gmtime()))
+        self.bus.publish(self.emit, argument=time.strftime("%H:%M:%S", time.localtime()))
 
     def shutdown(self):
         None
