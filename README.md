@@ -259,6 +259,10 @@ For each widget that you want to use you have to specify:
 * width: width in pixels 
 * height: height in pixels
 
+To ease things a bit, here is how you can compute x, y, w and h
+
+![](./img/placement.png)
+
 optionally you can specify:
 
 * borderColor: a string containing a RGB hex value such as 0xAA00FF. Border width is always one pixel.
