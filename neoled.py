@@ -107,10 +107,11 @@ class NeoLed():
             adapter_instance = adapter_class(self.bus, **adapter)
 
         neologger.info("= loading commands")
-        for command in self.config["commands"]:
-            neologger.info("\tcreating " + command["type"])
-            command_class = self.get_class(command["type"])
-            command_instance = command_class(self.bus, **command)
+        if 'commands' in self.config:
+            for command in self.config["commands"]:
+                neologger.info("\tcreating " + command["type"])
+                command_class = self.get_class(command["type"])
+                command_instance = command_class(self.bus, **command)
 
         neologger.info("Bus state:\n" + pprint.pformat(self.bus.subscriptions))
 

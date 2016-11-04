@@ -1,18 +1,43 @@
 [
   {
+    "type": "widgets.ImageWidget.ImageWidget",
+    "x": 0,
+    "y": 64,
+    "width": 128,
+    "height": 32,
+    "borderColor": "0",
+    "bgColor": "0",
+    "listen": "fortune.event",
+    "imagePath": "/home/pi/IOT/neoled/sample-config/fabrice.ppm"
+  },
+  {
+    "type": "widgets.TextWidget.TextWidget",
+    "x": 0,
+    "y": 15,
+    "width": 128,
+    "height": 17,
+    "borderColor": "0",
+    "bgColor": "0x010101",
+    "font": "8x13.bdf",
+    "defaultText": "Temp : {}",
+    "jsonpath": [
+      "web.telemetry",
+      "temperature"
+    ]
+  },
+  {
     "type": "widgets.TextWidget.TextWidget",
     "x": 0,
     "y": 31,
     "width": 128,
-    "height": 32,
+    "height": 17,
     "borderColor": "0",
     "bgColor": "0x010101",
-    "font": "4x6.bdf",
-    "defaultText": "ABCDEFGHIJ\tKLMNOPQRSTUVW1234567890",
-    "listen": "hockey.event",
+    "font": "8x13.bdf",
+    "defaultText": "Light : {}",
     "jsonpath": [
-      "web.hockey",
-      "feedback.name"
+      "web.telemetry",
+      "ambientLightLevel"
     ]
   }
 ]

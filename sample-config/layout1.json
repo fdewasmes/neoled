@@ -1,5 +1,16 @@
 [
   {
+    "type": "widgets.ImageWidget.ImageWidget",
+    "x": 0,
+    "y": 64,
+    "width": 128,
+    "height": 32,
+    "borderColor": "0",
+    "bgColor": "0",
+    "listen": "fortune.event",
+    "imagePath": "/home/pi/IOT/neoled/sample-config/neopixl.ppm"
+  },
+  {
     "type": "widgets.TextWidget.TextWidget",
     "x": 0,
     "y": 10,

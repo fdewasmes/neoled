@@ -36,6 +36,8 @@ class GraphWidget(Widget):
         super(GraphWidget, self).drawBackground(self.bgColor)
 
         m = max(list(self.data))
+        scale = 1.0
+        
         if (m > 0):
             scale = self.height * 1.0 / m
 

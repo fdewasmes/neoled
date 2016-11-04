@@ -15,7 +15,7 @@ dir_path = os.path.dirname(os.path.realpath(__file__))
 class TextWidget(Widget):
     def callback(self, bus, argument):
         self.called_bus = bus
-        self.text = argument
+        self._value = argument
 
     def jsonp(self, bus, path="", query="", body=None):
         self.called_bus = bus
@@ -25,10 +25,11 @@ class TextWidget(Widget):
             if len(matches) > 0:
                 self.text = str(matches[0].value)
 
-    def __init__(self, matrix, bus, offscreenCanvas, x=0, y=10, width=50, height=10, defaultText="hello",
+    def __init__(self, matrix, bus, offscreenCanvas, x=0, y=10, width=50, height=10, defaultText="{}",
                  font="6x10.bdf", textColor="0xFFFFFF", borderColor="0x0A0A0A", bgColor="0x00000A",
                  listen=None, color_choosers={}, observe=[], jsonpath=None, type=__name__):
         super(TextWidget, self).__init__(matrix, bus, offscreenCanvas, x, y, width, height)
+        self._value = "None"
         self._text = defaultText
         self._load_font(dir_path + "/../matrix/fonts/" + font)
 
@@ -69,7 +70,7 @@ class TextWidget(Widget):
 
     @property
     def text(self):
-        return self._text
+        return self._text.format(self._value)
 
     @text.setter
     @color_tweaker
@@ -96,9 +97,9 @@ class TextWidget(Widget):
         #    self.offscreenCanvas.SetPixel(self.x+i, self.y-1,0,0,0)
 
         # crop text if it's too long
-        self.text = self.text[0:self.max_char_per_line * self.max_line]
+        tmptext = self.text[0:self.max_char_per_line * self.max_line]
 
-        wrapped = textwrap.wrap(self.text, self.max_char_per_line)
+        wrapped = textwrap.wrap(tmptext, self.max_char_per_line)
 
         if len(wrapped) > 0:
             for line in (0, min(len(wrapped), self.max_line) - 1):

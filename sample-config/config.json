@@ -1,7 +1,7 @@
 {
   "matrix": {
     "rows": 32,
-    "parallel": 1,
+    "parallel": 2,
     "chain": 4,
     "pwmbits": 11,
     "brightness": 50
@@ -46,7 +46,6 @@
       "upperBound": 3,
       "emit": "layout.event"
     }
-
   ],
   "adapters": [
     {
@@ -68,23 +67,6 @@
       "type": "adapters.layout.LayoutAdapter",
       "listen": "web.layout",
       "emit": "layout.event"
-    },
-    {
-      "type": "adapters.hockeyapp.HockeyAppAdapter",
-      "listen": "web.hockey",
-      "emit": "hockey.event"
-    }
-  ],
-  "commands": [
-    {
-      "type": "commands.hue.HueCommand",
-      "bridgeIp": "192.168.136.56",
-      "config_file_path": "/home/pi/neopixl-led/sample-config/confighue",
-      "listen": "hue.command",
-      "lightbulbs": [
-        "Porte",
-        "Plafond 1"
-      ]
     }
   ]
 }
