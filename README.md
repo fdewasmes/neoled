@@ -65,9 +65,11 @@ QUICKSTART
 
 Once you've checked the project, please ensure that you've properly checked out the matrix submodule : 
 
-> git submodule update --init --recursive
-> git fetch
-> git submodule update --remote
+```shell
+git submodule update --init --recursive
+git fetch
+git submodule update --remote
+```
 
 You will have to compile everything. Please make sure that you've setup the makefile by editing the lib/Makefile file [as explained in the matrix library documentation](https://github.com/hzeller/rpi-rgb-led-matrix/blob/master/README.md)
 
