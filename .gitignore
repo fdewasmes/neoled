@@ -1,2 +1,4 @@
 *.pyc
 neo.log
+._.DS_Store
+._.gitignore
