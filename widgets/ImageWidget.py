@@ -9,13 +9,13 @@ class ImageWidget(Widget):
     def callback(self, bus, argument):
         self.called_bus = bus
 
-    def __init__(self, matrix, bus, offscreenCanvas, x=0, y=0, width=128, height=32, borderColor="0",
-                 bgColor="0", listen="event.key", imagePath=None,
+    def __init__(self, matrix, bus, imageCanvas, x=0, y=0, width=128, height=32, borderColor="#000000",
+                 bgColor="#000000", listen="event.key", imagePath=None,
                  type=__name__):
-        super(ImageWidget, self).__init__(matrix, bus, offscreenCanvas, x, y, width, height)
+        super(ImageWidget, self).__init__(matrix, bus, imageCanvas, x, y, width, height)
 
-        self.borderColor = super(ImageWidget, self).color_from_hex(int(borderColor, 0))
-        self._bgColor = super(ImageWidget, self).color_from_hex(int(bgColor, 0))
+        self.borderColor = borderColor
+        self._bgColor = bgColor
         self.image_path = imagePath
 
         self.bus.subscribe(listen, self.callback)
@@ -33,4 +33,4 @@ class ImageWidget(Widget):
             return
         self.image = Image.open(self.image_path)
         self.image.resize((self.width, self.height), Image.ANTIALIAS)
-        self.offscreenCanvas.SetImage(self.image, self.x, self.y - self.height)
+        self.imageCanvas.paste(self.image, (self.x, self.y - self.height))

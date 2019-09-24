@@ -1,9 +1,12 @@
 #!/usr/bin/env python
 
-
+from PIL import Image
+from PIL import ImageDraw
 from rgbmatrix import graphics
 import operator
+import logging
 
+logger = logging.getLogger('neoled')
 
 def color_tweaker(f):
     ops = {
@@ -31,7 +34,8 @@ def color_tweaker(f):
                                    self.color_choosers[observer[1]]))
 
                     if len(g) > 0:
-                        setattr(self, observer[2], self.color_from_hex(int(g[0], 0)))
+                        
+                        setattr(self, observer[2], g[0])
 
         r = f(self, *args, **kwargs)
         return r
@@ -41,7 +45,7 @@ def color_tweaker(f):
 class Widget(object):
     """ Base class for all widgets """
 
-    def __init__(self, matrix, bus, offscreenCanvas, x, y, width, height):
+    def __init__(self, matrix, bus, imageCanvas, x, y, width, height):
         """ constructor
         Parameters
         ----------
@@ -49,7 +53,7 @@ class Widget(object):
             the led matrix as returned by RGB Matrix
         bus
             the instance of the cyrusbus used thourghout the program
-        offscreenCanvas
+        imageCanvas
             the canvas on which we will write
         x: int
             x position of the widget
@@ -61,7 +65,7 @@ class Widget(object):
             height of the widget"""
         self._matrix = matrix
         self._bus = bus
-        self._offscreenCanvas = offscreenCanvas
+        self._imageCanvas = imageCanvas
         self._x = x
         self._y = y
         self._width = width
@@ -116,12 +120,12 @@ class Widget(object):
         self._matrix = value
 
     @property
-    def offscreenCanvas(self):
-        return self._offscreenCanvas
+    def imageCanvas(self):
+        return self._imageCanvas
 
-    @offscreenCanvas.setter
-    def offscreenCanvas(self, value):
-        self._offscreenCanvas = value
+    @imageCanvas.setter
+    def imageCanvas(self, value):
+        self._imageCanvas = value
 
     def color_from_hex(self, c):
         r = (c >> 16) & 0xFF
@@ -130,20 +134,15 @@ class Widget(object):
         return graphics.Color(r, g, b)
 
     def drawBorder(self, color):
-        if color.red == color.green == color.blue == 0:
-            return
-        graphics.DrawLine(self.offscreenCanvas, self.x, self.y, self.x + self.width - 1, self.y, color)
-        graphics.DrawLine(self.offscreenCanvas, self.x + self.width - 1, self.y, self.x + self.width - 1,
-                          self.y - self.height + 1,
-                          color)
-        graphics.DrawLine(self.offscreenCanvas, self.x, self.y, self.x, self.y - self.height + 1, color)
-        graphics.DrawLine(self.offscreenCanvas, self.x, self.y - self.height + 1, self.x + self.width - 1,
-                          self.y - self.height + 1,
-                          color)
+        #if color.red == color.green == color.blue == 0:
+        #    return
+        draw = ImageDraw.Draw(self.imageCanvas)
+        draw.rectangle((self.x, self.y, self.x + self.width - 1, self.y - self.height + 1), outline=color)
+        del draw
 
     def drawBackground(self, color):
-        if color.red == color.green == color.blue == 0:
-            return
-        for i in range(0, self.width):
-            for j in range(0, self.height):
-                self.offscreenCanvas.SetPixel(self.x + i, self.y - j, color.red, color.green, color.blue)
+        #if color.red == color.green == color.blue == 0:
+        #    return
+        draw = ImageDraw.Draw(self.imageCanvas)
+        draw.rectangle((self.x, self.y, self.x + self.width - 1, self.y - self.height + 1), fill=color, outline="#000000")
+        del draw

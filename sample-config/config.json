@@ -1,32 +1,25 @@
 {
   "matrix": {
     "rows": 32,
-    "parallel": 2,
+    "parallel": 3,
     "chain": 4,
     "pwmbits": 11,
     "brightness": 50
   },
   "layouts": [
     "sample-config/layout1.json",
-    "sample-config/layout2.json",
-    "sample-config/layout3.json",
-    "sample-config/layout4.json"
+    "sample-config/layout40.json"
+
   ],
   "defaultLayout": 0,
   "providers": [
-    {
-      "type": "providers.WebProvider.WebProvider"
-    },
+
     {
       "type": "providers.DatetimeProvider.DatetimeProvider",
       "refreshInterval": 1,
       "emit": "time.event"
     },
-    {
-      "type": "providers.CpuProvider.CpuProvider",
-      "refreshInterval": 1,
-      "emit": "cpu.event"
-    },
+
     {
       "type": "providers.ShellProvider.ShellProvider",
       "refreshInterval": 10,
@@ -43,7 +36,7 @@
       "type": "providers.RollingCounterProvider.RollingCounterProvider",
       "refreshInterval": 5,
       "lowerBound": 0,
-      "upperBound": 3,
+      "upperBound": 1,
       "emit": "layout.event"
     }
   ],

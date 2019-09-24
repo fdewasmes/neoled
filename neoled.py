@@ -8,6 +8,9 @@ import pprint
 import sys
 import time
 
+from PIL import Image
+from PIL import ImageDraw
+
 from apscheduler.schedulers.background import BackgroundScheduler
 from cyrusbus import Bus
 from rgbmatrix import RGBMatrix
@@ -22,7 +25,7 @@ neologger = logging.getLogger('neoled')
 class NeoLed():
     def callback(self, bus, argument):
         self.called_bus = bus
-
+        neologger.info("clear")
         self.default_layout = int(argument)
         self.matrix.Clear()
 
@@ -37,6 +40,7 @@ class NeoLed():
 
         self.load_config()
         self.init_matrix()
+        self.imageCanvas = Image.new("RGB", (self.matrix.width, self.matrix.height))
 
         self.default_layout = 0
         # prepare scheduler
@@ -123,10 +127,15 @@ class NeoLed():
         if self.default_layout < len(widget_instances):
             while True:
                 if self.default_layout < len(widget_instances):
+                    draw = ImageDraw.Draw(self.imageCanvas)
+                    draw.rectangle((0, 0, self.matrix.width,self.matrix.height), fill="#000")
+
                     for widget in widget_instances[self.default_layout]:
                         widget.Display()
+                    self.offscreenCanvas.SetImage(self.imageCanvas,0,0)
                     self.matrix.SwapOnVSync(self.offscreenCanvas)
-                    time.sleep(0.1)
+
+                    time.sleep(0.5)
 
     def __load_widgets_for_layout(self, layout_file):
         neologger.info("= loading widgets for layout file " + layout_file)
@@ -136,7 +145,7 @@ class NeoLed():
         for widget in layout:
             neologger.info("\tcreating " + widget["type"])
             widget_class = self.get_class(widget["type"])
-            widget_instance = widget_class(self.matrix, self.bus, self.offscreenCanvas, **widget)
+            widget_instance = widget_class(self.matrix, self.bus, self.imageCanvas, **widget)
             widgets.append(widget_instance)
         return widgets
 

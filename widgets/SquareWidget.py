@@ -12,11 +12,11 @@ class SquareWidget(Widget):
         self.called_bus = bus
         self.val = argument
 
-    def __init__(self, matrix, bus, offscreenCanvas, x=0, y=0, width=4, height=4, color="0xFF0000",
-                 borderColor="0x0A0A0A", listen="event.key", color_choosers={}, observe=[], type=__name__):
-        super(SquareWidget, self).__init__(matrix, bus, offscreenCanvas, x, y, width, height)
-        self._color = super(SquareWidget, self).color_from_hex(int(color, 0))
-        self.borderColor = super(SquareWidget, self).color_from_hex(int(borderColor, 0))
+    def __init__(self, matrix, bus, imageCanvas, x=0, y=0, width=4, height=4, color="#FF0000",
+                 borderColor="#0A0A0A", listen="event.key", color_choosers={}, observe=[], type=__name__):
+        super(SquareWidget, self).__init__(matrix, bus, imageCanvas, x, y, width, height)
+        self._color = color
+        self.borderColor = borderColor
         self._val = 0
         self.color_choosers = color_choosers
         self.observe = observe
