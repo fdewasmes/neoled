@@ -7,4 +7,4 @@ phue==0.8
 pygame==1.9.2a0
 pymongo==3.3.0
 qhue==1.0.4
-requests==2.11.1
+requests==2.20.0
